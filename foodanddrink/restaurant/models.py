@@ -72,7 +72,7 @@ class Review(models.Model):
   user = models.ForeignKey('Customer', on_delete= models.CASCADE)
   product = models.ForeignKey('Product', on_delete= models.CASCADE)
   content = models.TextField(max_length=1000, help_text='Enter description of review')
-
+  vote = models.IntegerField()
 
 class Comment(models.Model):
   """docstring for Comment"""
