@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import User, Customer
+from .models import User, Customer, Comment
 from django import forms
 from string import Template
 from django.utils.safestring import mark_safe
@@ -46,6 +46,8 @@ class CustomerUpdateForm(forms.ModelForm):
       'phone_number': forms.TextInput(attrs={'class':'form-control'}),
     }
 
-
-
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
 

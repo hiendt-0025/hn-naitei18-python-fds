@@ -16,9 +16,10 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from .forms import SignUpForm, CustomerUpdateForm, UserUpdateForm
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+
+from .models import Customer, Product, Order, Category, OrderDetail, Comment, Review
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
-from .models import Customer, Category, Product, OrderDetail, Order
 from django.http import Http404
 from django.core.paginator import Paginator
 from django.views import generic
@@ -198,6 +199,7 @@ def item_increment(request, pk):
     cart.add(product=product, category=product.category.name)
     return HttpResponseRedirect(reverse('order'))
 
+
 @login_required
 def updateProfile(request):
   customer = get_object_or_404(Customer, user = request.user)
@@ -222,3 +224,29 @@ def updateProfile(request):
   }
 
   return render(request, 'restaurant/edit_profile.html', context)
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import Review, Comment
+from .forms import CommentForm
+from django.http import HttpResponseRedirect
+# Create your views here.
+
+def addcomment(request,pk):
+      url = request.META.get('HTTP_REFERER')  # get last url
+      review = get_object_or_404(Review, pk=pk)
+      # comments = review.content.get(review=review)
+      if request.method == 'POST':  # check post
+        form = CommentForm(request.POST)
+        if form.is_valid():
+          comment = Comment()
+          comment.review = review
+          comment.content= form.cleaned_data['content']
+          comment.user = Customer.objects.get(user = request.user)
+          comment.save()
+          return HttpResponseRedirect(url)
+      template='restaurant/product_detail.html'
+      context = {'form': form,'comments':comments}
+      return render(request, template, context)
+
+
