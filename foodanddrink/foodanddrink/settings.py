@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import environ
 import os
+
+from django.conf.global_settings import AUTH_USER_MODEL
 from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -140,6 +142,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/accounts/profile/'
 LOGOUT_REDIRECT_URL = '/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,"media")
+MEDIA_URL = "/media/"
 
 EMAIL_USE_SSL = True
 EMAIL_PORT = 465

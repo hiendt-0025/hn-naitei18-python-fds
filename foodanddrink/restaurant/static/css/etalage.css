@@ -21,7 +21,7 @@
 	
 }
 
-/* Large thumbnail - image (in case you want to add a border around the image within the frame) */
+/* Large thumbnail - images (in case you want to add a border around the images within the frame) */
 #etalage .etalage_thumb_image{ }
 
 /* Small thumbnails: */
@@ -41,7 +41,7 @@
 	
 }
 
-/* Zoomed image area: */
+/* Zoomed images area: */
 #etalage .etalage_zoom_area,
 .etalage_zoom_area{
 	background: white url(../images/loading.gif) center no-repeat;
