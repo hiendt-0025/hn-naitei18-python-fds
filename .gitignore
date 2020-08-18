@@ -130,4 +130,5 @@ dmypy.json
 .pyre/
 foodanddrink/restaurant/static/images/
 foodanddrink/locale/
+foodanddrink/restaurant/locale
 *.po
