@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}<title>{% trans 'title_login' %}</title>{% endblock %}
+
+{% block content %}
+  <div class="arriv">
+  <div class="container">
+    <div class="registration">
+      {% if form.errors %}
+          <p>{% trans 'error_login1' %}</p>
+        {% endif %}
+
+        {% if next %}
+          {% if user.is_authenticated %}
+            <p>{% trans 'error_login2' %}</p>
+          {% else %}
+            <p>{% trans 'error_login3' %}</p>
+          {% endif %}
+        {% endif %}
+        <form id="loginForm" method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+            <fieldset id="body">
+              <fieldset>
+                <label for="user name">{% trans 'label_name' %}</label>
+                <input type="text" name="username" id="username">
+              </fieldset>
+              <fieldset>
+                <label for="password">{% trans 'label_pass' %}</label>
+                <input type="password" name="password" id="password">
+              </fieldset>
+              <input type="submit" id="login" value="Sign in">
+              <label for="checkbox"><input type="checkbox" id="checkbox"> <i>{% trans 'login_remember' %}</i></label>
+            </fieldset>
+          <span><a href="#">{% trans 'login_forgot' %}</a></span>
+        </form>
+      <div class="clearfix"> </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

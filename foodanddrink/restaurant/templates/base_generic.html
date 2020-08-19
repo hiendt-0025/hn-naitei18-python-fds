@@ -1,14 +1,16 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-{% block title %}<title>FOOD&DRINK WEBSITE</title>{% endblock %}
-
+{% load i18n %}
+{% block title %}<title>{% trans 'title_home' %}</title>{% endblock %}
 {% load static %}
+
 <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary JavaScript plugins) -->
 <script type='text/javascript' src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
 <!-- Custom Theme files -->
 <link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+<link href="{% static 'css/my_css.css' %}" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,13 +30,12 @@
     <div class="header_top">
       <div class="top_right">
         <ul>
-          <li><a href="#">help</a></li>|
-          <li><a href="contact.html">Contact</a></li>|
-          <li><a href="#">Delivery information</a></li>
+          <li><a href="#">{% trans 'contact' %}</a></li>|
+          <li><a href="#">{% trans 'delivery' %}</a></li>
         </ul>
       </div>
       <div class="top_left">
-        <h2><span></span> Call us : 032 2352 782</h2>
+        <h2><span></span>{% trans 'phone' %}</h2>
       </div>
         <div class="clearfix"> </div>
     </div>
