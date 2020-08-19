@@ -15,7 +15,7 @@ class Product(models.Model):
   """docstring for Product"""
   name = models.CharField(max_length=200)
   category = models.ForeignKey('Category', on_delete=models.CASCADE)
-  image = models.ImageField(default=None, upload_to='product_pics', null=True)
+  image = models.ImageField(default=None, upload_to='media/product_pics', null=True)
   description = models.TextField(max_length=1000, help_text='Enter description of product')
   price = models.DecimalField(max_digits = 4, decimal_places =2)
   quantity = models.IntegerField()
@@ -84,7 +84,7 @@ class Comment(models.Model):
 class Customer(models.Model):
   """docstring for Customer"""
   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  avatar = models.ImageField(upload_to='profile_pics')
+  avatar = models.ImageField(upload_to='media/profile_pics', null=True)
   address = models.CharField(max_length=200)
   phone_number = models.CharField(max_length=200)
 

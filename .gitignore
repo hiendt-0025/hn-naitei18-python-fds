@@ -132,3 +132,4 @@ foodanddrink/restaurant/static/images/
 foodanddrink/locale/
 foodanddrink/restaurant/locale
 *.po
+foodanddrink/profile_pics/
