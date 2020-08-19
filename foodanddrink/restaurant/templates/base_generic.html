@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+{% block title %}<title>FOOD&DRINK WEBSITE</title>{% endblock %}
+
+{% load static %}
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary JavaScript plugins) -->
+<script type='text/javascript' src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<!-- Custom Theme files -->
+<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<!--//theme-style-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- start menu -->
+<link href="{% static 'css/megamenu.css' %}" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="{% static 'js/megamenu.js' %}"></script>
+<script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
+<script src="{% static 'js/menu_jquery.js' %}"></script>
+<script src="{% static 'js/simpleCart.min.js' %}"> </script>
+</head>
+<body>
+<!-- header_top -->
+<div class="top_bg">
+  <div class="container">
+    <div class="header_top">
+      <div class="top_right">
+        <ul>
+          <li><a href="#">help</a></li>|
+          <li><a href="contact.html">Contact</a></li>|
+          <li><a href="#">Delivery information</a></li>
+        </ul>
+      </div>
+      <div class="top_left">
+        <h2><span></span> Call us : 032 2352 782</h2>
+      </div>
+        <div class="clearfix"> </div>
+    </div>
+  </div>
+</div
+<!-- header -->
+{% include "header.html" %}
+{% block content %}<!-- default content text (typically empty) -->{% endblock %}
+{% include "footer.html" %}
+</body>
+</html>
