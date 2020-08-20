@@ -1,0 +1,14 @@
+#log{
+  width: 17% !important;
+  margin-right: 5px;
+}
+
+#user{
+  position: relative;
+  top: 5px;
+}
+
+#loginForm{
+  width:600px !important;
+  margin-left:20% !important;
+}
