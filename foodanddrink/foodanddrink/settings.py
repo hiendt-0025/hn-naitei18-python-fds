@@ -148,3 +148,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+    ('en', ('English')),
+    ('vi', ('Việt Nam')),
+)
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
