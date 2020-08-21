@@ -61,7 +61,7 @@ class Order(models.Model):
   )
 
   def __str__(self):
-    return f'Order #{self.id} - {self.customer.username}'
+    return f'Order #{self.code}'
 
   class Meta():
     ordering = ['-date_ordered']
