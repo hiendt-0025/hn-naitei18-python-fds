@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'restaurant',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -75,13 +76,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processor.cart_total_amount',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'foodanddrink.wsgi.application'
-
+CART_SESSION_ID = 'cart'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -159,6 +161,7 @@ LANGUAGES = (
     ('en', ('English')),
     ('vi', ('Việt Nam')),
 )
+
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -167,3 +170,5 @@ USE_TZ = True
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+SESSION_SAVE_EVERY_REQUEST = True

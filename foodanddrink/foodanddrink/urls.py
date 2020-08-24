@@ -25,5 +25,6 @@ urlpatterns = i18n_patterns(
     path('', include('restaurant.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('product/', include('restaurant.urls')),
+
     prefix_default_language=False
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

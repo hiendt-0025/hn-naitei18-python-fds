@@ -1,155 +1,209 @@
-#log{
-  width: 17% !important;
-  margin-right: 5px;
+#log {
+    width: 17% !important;
+    margin-right: 5px;
 }
 
-#user{
-  position: relative;
-  top: 5px;
+#user {
+    position: relative;
+    top: 5px;
 }
 
-#loginForm{
-  width:600px !important;
-  margin-left:20% !important;
+#loginForm {
+    width: 600px !important;
+    margin-left: 20% !important;
 }
 
 .row1 {
-  overflow: hidden!important;
+    overflow: hidden !important;
 }
 
 .profile {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 
 /* Profile sidebar */
 .profile-sidebar {
-  padding: 20px 0 10px 0;
-  background: #fff;
+    padding: 20px 0 10px 0;
+    background: #fff;
 }
 
 .profile-userpic img {
-  float: none;
-  margin: 0 auto;
-  width: 120px;
-  height: 120px;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
-  border-radius: 50% !important;
+    float: none;
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
 }
 
 .profile-usertitle {
-  text-align: center;
-  margin-top: 20px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .profile-usertitle-name {
-  color: #5a7391;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 7px;
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
 }
 
 .profile-usertitle-job {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 15px;
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
 .profile-userbuttons {
-  text-align: center;
-  margin-top: 10px;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .profile-userbuttons .btn {
-  text-transform: uppercase;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 6px 15px;
-  margin-right: 5px;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
 }
 
 .profile-userbuttons .btn:last-child {
-  margin-right: 0px;
+    margin-right: 0px;
 }
 
 .profile-usermenu {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 .profile-usermenu ul li {
-  border-bottom: 1px solid #f0f4f7;
+    border-bottom: 1px solid #f0f4f7;
 }
 
 .profile-usermenu ul li:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .profile-usermenu ul li a {
-  color: #93a3b5;
-  font-size: 14px;
-  font-weight: 400;
+    color: #93a3b5;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .profile-usermenu ul li a i {
-  margin-right: 8px;
-  font-size: 20px;
+    margin-right: 8px;
+    font-size: 20px;
 }
 
 .profile-usermenu ul li a:hover {
-  background-color: #fafcfd;
-  color: #5b9bd1;
+    background-color: #fafcfd;
+    color: #5b9bd1;
 }
 
 .profile-usermenu ul li.active {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .profile-usermenu ul li.active a {
-  color: #5b9bd1;
-  background-color: #f6f9fb;
-  border-left: 2px solid #5b9bd1;
-  margin-left: -2px;
+    color: #5b9bd1;
+    background-color: #f6f9fb;
+    border-left: 2px solid #5b9bd1;
+    margin-left: -2px;
 }
 
 .header_right {
     float: right;
-    width: 50%!important;
+    width: 50% !important;
 }
 
-.special h3{
-  color: #000000;
+.special h3 {
+    color: #000000;
 }
 
 .special h3:before {
-  background: none;
+    background: none;
 }
 
 .special h3:after {
-  background: none;
+    background: none;
 }
 
 .specia-top .img-responsive {
-  width: 265px;
-  height: 200px;
+    width: 265px;
+    height: 200px;
 }
 
 .pagination {
-  display: inline-block;
+    display: inline-block;
 }
 
 .pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
 }
 
 .pagination a.active {
-  background-color: #4CAF50;
-  color: white;
+    background-color: #4CAF50;
+    color: white;
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
 
+.item {
+    /*border-radius: 5px;*/
+    /*border-style: solid;*/
+    /*margin: 5px;*/
+    /*height: 160px;*/
+    /*vertical-align: middle;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    border: 3px solid green;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.continue {
+    background: #00405d;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.center_inside {
+    width: 90%;
+}
+
+.decrement {
+    /*background-color: greenyellow;*/
+    cursor: pointer;
+    /*width: 60px;*/
+    /*height: 28px;*/
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    -webkit-transition: color 0.2s ease-in-out;
+    -moz-transition: color 0.2s ease-in-out;
+    -o-transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
+}
+
+.button_option {
+    background-color: greenyellow;
+    cursor: pointer;
+    width: 60px;
+    height: 28px;
+    margin-top: 5px;
+}
