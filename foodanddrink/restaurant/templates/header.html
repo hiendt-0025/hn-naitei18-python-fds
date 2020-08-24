@@ -57,6 +57,27 @@
         <li class="active grid"><a class="color2" href="{% url 'index' %}">{% trans 'Foods and Drink' %}</a></li>
         <li class="active grid"><a class="color3" href="{% url 'index' %}">{% trans 'Contact' %}</a></li>
       </ul>
+        <li class="grid"><a class="color2" href="#">{% trans 'Category' %}</a>
+          <div class="megapanel">
+            <div class="row">
+              <div class="col1">
+                <div class="h_nav">
+                  <h4>{% trans 'List Category' %}</h4>
+                  {% if list_category %}
+                  <ul>
+                    {% for category in list_category %}
+                    <li><a href="#">{{ category.name}}</a></li>
+                    {% endfor %}
+                  </ul>
+                  {% else %}
+                    <p>There are no category .</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+       </ul>
     </div>
   </div>
 </div>

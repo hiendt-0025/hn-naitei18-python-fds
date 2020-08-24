@@ -14,12 +14,25 @@ from .models import Customer, Product, Order, Category, OrderDetail
 UserModel = get_user_model()
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
-from .models import Customer
+from restaurant.models import Customer, Category, Product
 from django.http import Http404
+from django.core.paginator import Paginator
 
 # view.function
 def index(request):
-  return render(request, 'index.html')
+  list_category = Category.objects.all()
+  list_product = Product.objects.filter(vote = 5)
+  paginator = Paginator(list_product, 4)
+
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+
+  context = {
+    'list_category': list_category,
+    'page_obj': page_obj
+  }
+
+  return render(request, 'index.html', context)
 
 def success_activation(request):
   return render(request, 'sign_up/verification_success.html')
