@@ -26,7 +26,7 @@
               {% if user.is_authenticated %}
                 <a href="{% url 'logout' %}">{% trans 'logout' %}</a>
               {% else %}
-                <a href="#">{% trans 'register' %}</a>
+                <a href="{% url 'register' %}">{% trans 'register' %}</a>
               {% endif %}
             </div>
           <div class="cart box_1">
@@ -54,7 +54,9 @@
       <!-- start header menu -->
       <ul class="megamenu skyblue">
         <li class="active grid"><a class="color1" href="{% url 'index' %}">{% trans 'home' %}</a></li>
-       </ul>
+        <li class="active grid"><a class="color2" href="{% url 'index' %}">{% trans 'Foods and Drink' %}</a></li>
+        <li class="active grid"><a class="color3" href="{% url 'index' %}">{% trans 'Contact' %}</a></li>
+      </ul>
     </div>
   </div>
 </div>
