@@ -6,9 +6,39 @@
 {% block content %}
   <div class="arriv">
     <div class="container">
-      <div class="arriv-top">
-        <p></p>
-        <div class="clearfix"> </div>
+      <div class="special">
+        <h3>{% trans 'List Hot Products' %}</h3>
+        <div class="specia-top">
+          {% if page_obj %}
+          <ul class="grid_2">
+          {% for product in page_obj %}
+            <li>
+              <a href="#"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
+              <div class="special-info grid_1 simpleCart_shelfItem">
+                <h5>{{ product.name }}</h5>
+                <div class="item_add"><span class="item_price"><h6>{{ product.price}}</h6></span></div>
+                <div class="item_add"><span class="item_price"><a href="#">add to cart</a></span></div>
+              </div>
+            </li>
+          {% endfor %}
+
+          <div class="clearfix"> </div>
+          <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo;</a>
+                <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+            {% endif %}
+          </div>
+          </ul>
+          {% else %}
+            <p>There are no products .</p>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
