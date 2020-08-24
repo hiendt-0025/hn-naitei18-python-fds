@@ -11,6 +11,10 @@ from .forms import SignUpForm
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 UserModel = get_user_model()
+from django.utils.translation import ugettext as _
+from django.contrib.auth.decorators import login_required
+from restaurant.models import Customer
+from django.http import Http404
 
 def index(request):
   return render(request, 'index.html')
@@ -65,3 +69,15 @@ def activate(request, uidb64, token):
     return HttpResponseRedirect(reverse('success_activation'))
   else:
     return HttpResponseRedirect(reverse('fail_activation'))
+
+@login_required
+def profile(request):
+  try:
+    customer = Customer.objects.filter(user = request.user)
+  except Customer.DoesNotExist:
+    raise Http404('Customer does not exist')
+
+  context = {
+    'profile': customer
+  }
+  return render(request, 'restaurant/profile.html', context)

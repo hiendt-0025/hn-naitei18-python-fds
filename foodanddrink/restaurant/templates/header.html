@@ -15,7 +15,7 @@
               <div class="login" >
                 <div id="loginContainer">
                   {% if user.is_authenticated %}
-                    <a href="#" id="user">{% trans 'hi' %} {{ user.username }} !</a>
+                    <a href="{% url 'profile' %}" id="user">{% trans 'hi' %} {{ user.username }} !</a>
                   {% else %}
                     <a href="{% url 'login' %}" ><span>{% trans 'login' %}</span></a>
                   {% endif %}

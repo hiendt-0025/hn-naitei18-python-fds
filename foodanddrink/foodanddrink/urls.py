@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 from django.conf.urls.i18n import i18n_patterns
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('restaurant.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/profile/', TemplateView.as_view(template_name='restaurant/profile.html'), name='profile'),
+
     prefix_default_language=False
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
