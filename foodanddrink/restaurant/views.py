@@ -14,9 +14,12 @@ from .models import Customer, Product, Order, Category, OrderDetail
 UserModel = get_user_model()
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
+
 from restaurant.models import Customer, Category, Product
 from django.http import Http404
 from django.core.paginator import Paginator
+from django.views import generic
+
 
 # view.function
 def index(request):
@@ -96,6 +99,7 @@ def profile(request):
     'profile': customer
   }
   return render(request, 'restaurant/profile.html', context)
+
 # def order(request):
 #   return render(request,'restaurant/checkout.html')
 
@@ -108,3 +112,9 @@ def delete_a_product(request, pk, pk2):
     deleted_product = OrderDetail.objects.filter(order=pk).filter(pk=pk2)
     deleted_product.delete()
     return HttpResponseRedirect(reverse('success_activation'))
+
+class ProductDetailView(generic.DetailView):
+    model = Product
+    def product_detail_view(request, primary_key):
+        product = get_object_or_404(Product, pk=primary_key)
+        return render(request, 'product_detail.html', context={'product': product})
