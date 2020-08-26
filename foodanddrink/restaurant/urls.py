@@ -13,7 +13,12 @@ urlpatterns = [
     path('register/fail_activation/', views.fail_activation, name='fail_activation'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
     path('accounts/profile/', views.profile, name='profile'),
+
     path('<int:pk>', views.ProductDetailView.as_view(), name='product_details'),
-    path('order/<int:pk>/',views.order_detail_view, name='order'),
-    path('order/<int:pk>/<int:pk2>',views.delete_a_product, name='delete_a_product')
+    path('add/<int:pk>/',views.cart_add, name='add_to_cart'),
+    path('order/',views.cart_detail, name='order'),
+    path('item_clear/<int:pk>/',views.item_clear,name='item_clear'),
+    path('make_order/',views.make_order,name='make_order'),
+    path('item_increment/<int:pk>/',views.item_increment,name='item_increment'),
+    path('item_decrement/<int:pk>/', views.item_decrement, name='item_decrement')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

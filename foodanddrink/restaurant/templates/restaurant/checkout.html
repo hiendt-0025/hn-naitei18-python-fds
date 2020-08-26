@@ -1,60 +1,82 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {% load i18n %}
+{% load cart_tag %}
+
+
 {% block content %}
+
 <body>
 <div class="container">
     <div class="check">
         <div class="col-md-3 cart-total">
-            <a class="continue" href="#">Continue to basket</a>
+            <a class="continue" href="{% url 'index' %}">Continue to basket</a>
 
             <div class="price-details">
                 <h3>Price Details</h3>
-                {% if items_in_cart %}
-                {% for item in items_in_cart %}
-
-                <li class="last_price">{{ item.product }} x {{ item.amount }} = ${{ item.price}}</li>
+                {% for key,item in request.session.cart.items %}
+                <li class="last_price">{{ item.name }} x {{ item.quantity }} = ${{ item.price_of_all }}</li>
                 <br/>
                 {% endfor %}
-                {% else %}
-                <li>
-                    <span>No items in order yet !</span>
-                </li>
-                {% endif %}
-
                 <div class="clearfix"></div>
             </div>
 
             <ul class="total_price">
                 <li class="last_price"><h4>TOTAL</h4></li>
-                <li class="last_price"><span>${{ customer_order.total_price }}</span></li>
+                <li class="last_price"><span>${{ cart_total_amount }}</span></li>
                 <div class="clearfix"></div>
             </ul>
 
             <div class="clearfix"></div>
-            <a class="order" href="#">Place Order</a>
+            <a class="order" href="{% url 'make_order' %}">Place Order</a>
         </div>
 
         <div class="col-md-9 cart-items">
-            <h1>My Cart</h1>
-            {% for item in items_in_cart %}
-            <div class="cart-header">
-                <div class="close1" onclick="deleleOrder"></div>
-                <div class="cart-sec simpleCart_shelfItem">
-                    <div class="cart-item cyc">
-                        <img src="{{ item.product.image.url }}" class="img-responsive" alt=""/>
+            <h1 class="continue">My Cart</h1>
+            {% for key,item in request.session.cart.items %}
+            <div class="item">
+                <div class="cart-header center_inside">
+
+                    <div>
+                        <form action="{% url 'item_clear' item.product_id %}" method="get">
+                            {% csrf_token %}
+                            <input class="close1" type="submit" value="Delete">
+                        </form>
                     </div>
-                    <div class="cart-item-info">
-                        <h3><a href="#">{{ item.product }}</a></h3>
-                        <p>Category: {{ item.product.category }}</p>
-                        <text> {{ item.product.description }}</text>
-                        <ul class="qty">
-                            <li><p>Price per serve : ${{ item.product.price }}</p></li>
-                            <li><p>Quantity : {{ item.amount }}</p></li>
-                        </ul>
+
+                    <div class="cart-sec simpleCart_shelfItem">
+                        <div class="cart-item cyc">
+                            <img src="{{ item.image }}" class="img-responsive" alt=""/>
+                        </div>
+                        <div class="cart-item-info">
+                            <h3><a href="#">{{ item.name }}</a></h3>
+                            <p>Category: {{ item.category }}</p>
+                            <text> {{ item.description }}</text>
+                            <ul class="qty">
+                                <li><p>Price per serve : ${{ item.price }}</p></li>
+                                <li><p>Quantity : {{ item.quantity }}</p></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="clearfix"></div>
+                    <br/>
+                    <div class="decrement">
+                        <div>
+                            <form action="{% url 'item_increment' item.product_id %}" method="get">
+                                {% csrf_token %}
+                                <input class="button_option" type="submit" value="+">
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="{% url 'item_decrement' item.product_id%}" method="get">
+                                {% csrf_token %}
+                                <input class="button_option" type="submit" value="-">
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
             {% endfor %}
         </div>

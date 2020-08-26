@@ -29,15 +29,15 @@
                 <a href="{% url 'register' %}">{% trans 'register' %}</a>
               {% endif %}
             </div>
-          <div class="cart box_1">
-            <a href="#">
-              <h3> <span class="simpleCart_total">$0.00</span> (<span id="simpleCart_quantity" class="simpleCart_quantity">0</span> items)<img src="{% static 'images/bag.png' %}" alt=""></h3>
-            </a>
-            {# <p><a href="javascript:;" class="simpleCart_empty">(empty card)</a></p> #}
-            <div class="clearfix"> </div>
-          </div>
+<!--          <div class="cart box_1">-->
+<!--            <a href="{% url 'order' %}">-->
+<!--              <h3> <span class="simpleCart_total">$0.00</span> (<span id="simpleCart_quantity" class="simpleCart_quantity">0</span> items)<img src="{% static 'images/bag.png' %}" alt=""></h3>-->
+<!--            </a>-->
+<!--            {# <p><a href="javascript:;" class="simpleCart_empty">(empty card)</a></p> #}-->
+<!--            <div class="clearfix"> </div>-->
+<!--          </div>-->
           <div class="create_btn">
-            <a href="#">{% trans 'checkout' %}</a>
+            <a href="{% url 'order' %}">{% trans 'checkout' %}</a>
           </div>
           <div class="clearfix"> </div>
         </div>
@@ -56,7 +56,6 @@
         <li class="active grid"><a class="color1" href="{% url 'index' %}">{% trans 'home' %}</a></li>
         <li class="active grid"><a class="color2" href="{% url 'index' %}">{% trans 'Foods and Drink' %}</a></li>
         <li class="active grid"><a class="color3" href="{% url 'index' %}">{% trans 'Contact' %}</a></li>
-      </ul>
         <li class="grid"><a class="color2" href="#">{% trans 'Category' %}</a>
           <div class="megapanel">
             <div class="row">

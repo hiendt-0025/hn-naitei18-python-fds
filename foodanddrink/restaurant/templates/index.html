@@ -16,8 +16,8 @@
               <a href="#"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
               <div class="special-info grid_1 simpleCart_shelfItem">
                 <h5>{{ product.name }}</h5>
-                <div class="item_add"><span class="item_price"><h6>{{ product.price}}</h6></span></div>
-                <div class="item_add"><span class="item_price"><a href="#">add to cart</a></span></div>
+                <div class="item_add"><span class="item_price"><h6>${{ product.price}}</h6></span></div>
+                <div class="item_add"><span class="item_price"><a href="{% url 'add_to_cart' product.id %}" >add to cart</a></span></div>
               </div>
             </li>
           {% endfor %}
@@ -43,3 +43,7 @@
     </div>
   </div>
 {% endblock %}
+
+<script>
+
+</script>
