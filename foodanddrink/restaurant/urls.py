@@ -13,7 +13,7 @@ urlpatterns = [
     path('register/fail_activation/', views.fail_activation, name='fail_activation'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
     path('accounts/profile/', views.profile, name='profile'),
-
+    path('accounts/profile/edit', views.updateProfile, name='edit_profile'),
     path('<int:pk>', views.ProductDetailView.as_view(), name='product_details'),
     path('add/<int:pk>/',views.cart_add, name='add_to_cart'),
     path('order/',views.cart_detail, name='order'),

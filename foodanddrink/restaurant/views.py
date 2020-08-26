@@ -8,13 +8,12 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-
-from .forms import SignUpForm
+from .forms import SignUpForm, CustomerUpdateForm, UserUpdateForm
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext as _
@@ -23,10 +22,11 @@ from .models import Customer, Category, Product, OrderDetail, Order
 from django.http import Http404
 from django.core.paginator import Paginator
 from django.views import generic
+from django.contrib import messages
 
 UserModel = get_user_model()
 DEFAULT_AVATAR = 'media/profile_pics/default.jpg'
-# view.function
+
 def index(request):
     list_category = Category.objects.all()
     list_product = Product.objects.filter(vote=5)
@@ -78,7 +78,7 @@ def register(request):
             )
             email.content_subtype = "html"
             email.send()
-            return HttpResponseRedirect(reverse('inform'))
+            return HttpRespon(reverse('inform'))
     else:
         form = SignUpForm()
     return render(request, 'sign_up/register.html', {'form': form})
@@ -112,6 +112,15 @@ def profile(request):
   }
   return render(request, 'restaurant/profile.html', context)
 
+def order_detail_view(request, pk):
+  customer_order = Order.objects.get(pk=pk)
+  items_in_cart = OrderDetail.objects.filter(order=pk).select_related("product")
+  return render(request,'restaurant/checkout.html', context={'customer_order': customer_order, 'items_in_cart': items_in_cart})
+
+def delete_a_product(request, pk, pk2):
+    deleted_product = OrderDetail.objects.filter(order=pk).filter(pk=pk2)
+    deleted_product.delete()
+    return HttpResponseRedirect(reverse('success_activation'))
 
 class ProductDetailView(generic.DetailView):
     model = Product
@@ -188,3 +197,28 @@ def item_increment(request, pk):
     product = Product.objects.get(id=pk)
     cart.add(product=product, category=product.category.name)
     return HttpResponseRedirect(reverse('order'))
+
+@login_required
+def updateProfile(request):
+  customer = get_object_or_404(Customer, user = request.user)
+
+  if request.method == 'POST':
+    user_form = UserUpdateForm(request.POST, instance=request.user)
+    profile_form = CustomerUpdateForm(request.POST, request.FILES, instance=request.user.customer)
+
+    if user_form.is_valid() and profile_form.is_valid():
+      user_form.save()
+      profile_form.save()
+      messages.success(request, f'Your account has been updated!')
+      return redirect('profile')
+
+  else:
+    user_form = UserUpdateForm(instance=request.user)
+    profile_form = CustomerUpdateForm(instance=request.user.customer)
+
+  context = {
+    'u_form': user_form,
+    'p_form': profile_form
+  }
+
+  return render(request, 'restaurant/edit_profile.html', context)
