@@ -233,20 +233,35 @@ from django.http import HttpResponseRedirect
 # Create your views here.
 
 def addcomment(request,pk):
-      url = request.META.get('HTTP_REFERER')  # get last url
-      review = get_object_or_404(Review, pk=pk)
-      # comments = review.content.get(review=review)
-      if request.method == 'POST':  # check post
-        form = CommentForm(request.POST)
-        if form.is_valid():
-          comment = Comment()
-          comment.review = review
-          comment.content= form.cleaned_data['content']
-          comment.user = Customer.objects.get(user = request.user)
-          comment.save()
-          return HttpResponseRedirect(url)
-      template='restaurant/product_detail.html'
-      context = {'form': form,'comments':comments}
-      return render(request, template, context)
+  url = request.META.get('HTTP_REFERER')  # get last url
+  review = get_object_or_404(Review, pk=pk)
+  # comments = review.content.get(review=review)
+  if request.method == 'POST':  # check post
+    form = CommentForm(request.POST)
+    if form.is_valid():
+      comment = Comment()
+      comment.review = review
+      comment.content= form.cleaned_data['content']
+      comment.user = Customer.objects.get(user = request.user)
+      comment.save()
+      return HttpResponseRedirect(url)
+  template='restaurant/product_detail.html'
+  context = {'form': form,'comments':comments}
+  return render(request, template, context)
 
+def product_by_category(request, pk):
+  list_category = Category.objects.all()
+  category = get_object_or_404(Category, pk=pk)
+  list_product = category.product_set.all()
+  paginator = Paginator(list_product, 4)
 
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+
+  context = {
+      'list_category': list_category,
+      'category': category,
+      'page_obj': page_obj
+  }
+
+  return render(request, 'product_by_category.html', context)

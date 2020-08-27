@@ -24,4 +24,5 @@ urlpatterns = [
     path('order/<int:pk>/',views.order_detail_view, name='order'),
     path('order/<int:pk>/<int:pk2>',views.delete_a_product, name='delete_a_product'),
     path('addcomment/<int:pk>', views.addcomment, name='addcomment'),
+    path('category/<int:pk>', views.product_by_category, name='product_by_category'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
