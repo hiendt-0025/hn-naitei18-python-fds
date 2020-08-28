@@ -4,46 +4,69 @@
 {% block title %}<title>{% trans 'title' %}</title>{% endblock %}
 
 {% block content %}
-  <div class="arriv">
+<div class="arriv">
     <div class="container">
-      <div class="special">
-        <h3>{% trans 'List Hot Products' %}</h3>
-        <div class="specia-top">
-          {% if page_obj %}
-          <ul class="grid_2">
-          {% for product in page_obj %}
-            <li>
-              <a href="#"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
-              <div class="special-info grid_1 simpleCart_shelfItem">
-                <h5>{{ product.name }}</h5>
-                <div class="item_add"><span class="item_price"><h6>${{ product.price}}</h6></span></div>
-                <div class="item_add"><span class="item_price"><a href="{% url 'add_to_cart' product.id %}" >add to cart</a></span></div>
-              </div>
-            </li>
-          {% endfor %}
+        <div class="special">
+            <h3>{% trans 'List Hot Products' %}</h3>
+            <div class="specia-top">
+                {% if page_obj %}
+                <ul class="grid_2">
+                    {% for product in page_obj %}
+                    <li>
+                        <a href="#"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
+                        <div class="special-info grid_1 simpleCart_shelfItem">
+                            <h5>{{ product.name }}</h5>
+                            <div class="item_add"><span class="item_price"><h6>${{ product.price}}</h6></span></div>
+                            <div class="item_add">
+                              <span class="item_price">
+                                <form method="get" action="{% url 'add_to_cart' product.id %}" class="add_to_cart" name="{{product.name}}">
+                                  <input class="add-to-cart-button" type="submit" value="Add to Cart">
+                                </form>
+                              </span>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
 
-          <div class="clearfix"> </div>
-          <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo;</a>
-                <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
-            {% endif %}
+                    <div class="clearfix"></div>
+                    <div class="pagination">
+                        {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo;</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                        {% endif %}
 
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
-            {% endif %}
-          </div>
-          </ul>
-          {% else %}
-            <p>There are no products .</p>
-          {% endif %}
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                        {% endif %}
+                    </div>
+                </ul>
+                {% else %}
+                <p>There are no products .</p>
+                {% endif %}
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-{% endblock %}
+</div>
 
 <script>
+    $('.add_to_cart').on('submit', function (e) {
+        e.preventDefault(); //this stops the form submit + refresh
+        var $form = $(this);
+        var $name = $form.attr("name");
 
+        $.ajax({
+            type: 'get',
+            url: $form.attr("action"),
+            success: function (r) {
+                alert('You have add '+$name+" into your cart !")
+            },
+            error: function (r) {
+                alert('Oops! Something go wrong !');
+            }
+        });
+    });
 </script>
+{% endblock %}
+
+

@@ -1,5 +1,5 @@
-from decimal import Decimal
 import datetime
+from decimal import Decimal
 
 from cart.cart import Cart
 from cart.context_processor import cart_total_amount
@@ -79,7 +79,7 @@ def register(request):
             )
             email.content_subtype = "html"
             email.send()
-            return HttpRespon(reverse('inform'))
+            return HttpResponseRedirect(reverse('inform'))
     else:
         form = SignUpForm()
     return render(request, 'sign_up/register.html', {'form': form})
@@ -94,7 +94,10 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        customer = Customer(user_id = user.id, avatar = DEFAULT_AVATAR)
+
+        # Create default value for customer
+        customer = Customer(user_id = user.id, address = "None", phone_number = "None", avatar = DEFAULT_AVATAR)
+
         customer.save()
         return HttpResponseRedirect(reverse('success_activation'))
     else:
@@ -171,15 +174,16 @@ def make_order(request):
         for key, value in request.session['cart'].items():
             total_bill = total_bill + (float(value['price']) * value['quantity'])
 
-        order = Order(total_price=Decimal(total_bill), code=code, status='p', admin_id=1,
-                      customer_id=customer.id)
+        order = Order(total_price = Decimal(total_bill), code = code, status = 'p', admin_id = 1,
+                      customer_id = customer.id)
         order.save()
 
         order_id = order.id
 
         for key, item in request.session['cart'].items():
-            ordered_item = OrderDetail(price=Decimal(item['price']), amount=item['quantity'],
-                                       product_id=item['product_id'], order_id=order_id)
+
+            ordered_item = OrderDetail(price = Decimal(item['price']), amount = item['quantity'],
+                              product_id = item['product_id'], order_id = order_id)
             ordered_item.save()
 
         cart.clear()
