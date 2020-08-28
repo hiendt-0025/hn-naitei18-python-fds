@@ -52,7 +52,7 @@
               <div class="qty-input">
                 <span class="text-uppercase">quantity:{{ product.quantity }} </span>
               </div><br>
-              <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+              <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i><a href="#">Add to Cart</a></button>
             </div>
           </div>
         </div>
@@ -67,37 +67,73 @@
                 <p>{{ product.description }}</p>
               </div>
               <div id="tab2" class="tab-pane fade in">
-                <!-- review -->
-              {% for review in product.review_set.all %}
               <div class="row">
-                <div class="col-12">
-                  <div class="comments">
+                <div class="col-md-6">
+                  {% for review in product.review_set.all %}
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="comments">
 
-                    <div class="comment-box">
-                      <span class="commenter-name">
-                        <a href="#">{{ review.user }}</a> <span class="comment-time">2 hours ago</span>
-                      </span>
-                      <p class="comment-txt more">{{ review.content }}</p>
-                      {% for comment in review.comment_set.all %}
-                      <div class="comment-box replied">
-                        <span class="commenter-name">
-                          <a href="#">{{ comment.user }}</a> <span class="comment-time">2 hours ago</span>
-                        </span>
-                        <p class="comment-txt more">{{ comment.content }}</p>
-                      </div>
-                      {% endfor %}
-                      <form class="review-form" method="post" action="addcomment/{{ review.id }}">
-                           {% csrf_token %}
-                          <div class="form-group">
-                            <textarea class="input" name="content" placeholder="Your comment"></textarea>
+                          <div class="comment-box">
+                            <span class="commenter-name">
+                              <a href="#">{{ review.user }}</a> <span class="comment-time">{{ review.date|date:"d M Y" }} {{ review.date|time:"H:i" }}</span>
+                            </span>
+                            <p class="comment-txt more">{{ review.content }}</p>
+                            <div class="product-rating">
+                              <i class="fa fa-star{% if review.vote < 1 %}-o empty{% endif %}"></i>
+                              <i class="fa fa-star{% if review.vote < 2 %}-o empty{% endif %}"></i>
+                              <i class="fa fa-star{% if review.vote < 3 %}-o empty{% endif %}"></i>
+                              <i class="fa fa-star{% if review.vote < 4 %}-o empty{% endif %}"></i>
+                              <i class="fa fa-star{% if review.vote < 5 %}-o empty{% endif %}"></i>
+                            </div>
+                            {% for comment in review.comment_set.all %}
+                            <div class="comment-box replied">
+                              <span class="commenter-name">
+                                <a href="#">{{ comment.user }}</a> <span class="comment-time">{{ comment.date|date:"d M Y" }} {{ comment.date|time:"H:i" }}</span>
+                              </span>
+                              <p class="comment-txt more">{{ comment.content }}</p>
+                            </div>
+                            {% endfor %}
+                            <form class="review-form" method="post" action="addcomment/{{ review.id }}">
+                                 {% csrf_token %}
+                                <div class="form-group">
+                                  <textarea class="input" name="content" placeholder="Your comment"></textarea>
+                                </div>
+                                <button class="primary-btn">Comment</button>
+                            </form>
                           </div>
-                          <button class="primary-btn">Comment</button>
-                      </form>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  {% endfor %}
+                </div>
+                <div class="col-md-6">
+
+                  <h4 class="text-uppercase">{% trans 'Write Your Review' %}</h4>
+                  <form class="review-form" method="post" action="{% url 'review_product' product.id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <textarea class="input" placeholder="Your review" name="content"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-rating">
+                        <strong class="text-uppercase">{% trans 'Your Rating: ' %}</strong>
+                        <div class="stars">
+                          <input type="radio" id="star5" name="vote" value="5" /><label for="star5"></label>
+                          <input type="radio" id="star4" name="vote" value="4" /><label for="star4"></label>
+                          <input type="radio" id="star3" name="vote" value="3" /><label for="star3"></label>
+                          <input type="radio" id="star2" name="vote" value="2" /><label for="star2"></label>
+                          <input type="radio" id="star1" name="vote" value="1" /><label for="star1"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="primary-btn">Submit</button>
+                  </form>
+
                 </div>
               </div>
-              {% endfor %}
+                <!-- review -->
+
               <!-- review -->
               </div>
             </div>

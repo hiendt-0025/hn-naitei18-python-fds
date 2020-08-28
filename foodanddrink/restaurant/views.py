@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from .forms import SignUpForm, CustomerUpdateForm, UserUpdateForm
+from .forms import SignUpForm, CustomerUpdateForm, UserUpdateForm, ReviewForm
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
@@ -24,6 +24,7 @@ from django.http import Http404
 from django.core.paginator import Paginator
 from django.views import generic
 from django.contrib import messages
+from django.db.models import Avg
 
 UserModel = get_user_model()
 DEFAULT_AVATAR = 'media/profile_pics/default.jpg'
@@ -269,3 +270,29 @@ def product_by_category(request, pk):
   }
 
   return render(request, 'product_by_category.html', context)
+
+@login_required
+def review_product(request,pk):
+  product = get_object_or_404(Product, pk=pk)
+
+  if request.method == 'POST':
+    form = ReviewForm(request.POST)
+    if form.is_valid():
+      review = Review()
+      review.product = product
+      review.content= form.cleaned_data['content']
+      review.vote= form.cleaned_data['vote']
+      review.user = Customer.objects.get(user = request.user)
+      review.save()
+      rate= Review.objects.filter(product=product).aggregate(Avg('vote'))
+      product.vote = list(rate.values())[0]
+      product.save()
+
+      return redirect('product_details', pk)
+  template='restaurant/product_detail.html'
+
+  context = {
+    'form': form,
+    'product': product
+  }
+  return render(request, template, context)
