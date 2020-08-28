@@ -117,7 +117,6 @@ body a {
 .cart-item-info {
     width: 75%;
     float: left;
-
 }
 
 .check {
@@ -2290,6 +2289,7 @@ span.brand {
     cursor: pointer;
     outline: none;
     text-transform: uppercase;
+    border-radius: 5px;
 }
 
 .button:hover {

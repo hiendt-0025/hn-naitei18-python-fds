@@ -133,4 +133,3 @@ foodanddrink/locale/
 foodanddrink/restaurant/locale
 *.po    
 foodanddrink/media/
-foodanddrink/restaurant/static/restaurant/scss
