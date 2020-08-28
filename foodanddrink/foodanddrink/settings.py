@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'restaurant',
     'cart',
+    'django_sass_compiler',
 ]
 
 MIDDLEWARE = [

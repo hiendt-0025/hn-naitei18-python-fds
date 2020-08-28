@@ -28,7 +28,9 @@
             </ul>
 
             <div class="clearfix"></div>
-            <a class="order" href="{% url 'make_order' %}">Place Order</a>
+            <form id="order-form" action="{% url 'make_order' %}" method="get">
+                <input class="place-order-button" type= "submit" value="Place Order"/>
+            </form>
         </div>
 
         <div class="col-md-9 cart-items">
@@ -38,8 +40,7 @@
                 <div class="cart-header center_inside">
 
                     <div>
-                        <form action="{% url 'item_clear' item.product_id %}" method="get">
-                            {% csrf_token %}
+                        <form class="delete-form" action="{% url 'item_clear' item.product_id %}" method="get">
                             <input class="close1" type="submit" value="Delete">
                         </form>
                     </div>
@@ -59,24 +60,20 @@
                         </div>
                     </div>
                     <br/>
-                    <div class="decrement">
+                    <div class="group_option_button">
                         <div>
-                            <form action="{% url 'item_increment' item.product_id %}" method="get">
-                                {% csrf_token %}
+                            <form class="increment-form" action="{% url 'item_increment' item.product_id %}" method="get">
                                 <input class="button_option" type="submit" value="+">
                             </form>
                         </div>
 
                         <div>
-                            <form action="{% url 'item_decrement' item.product_id%}" method="get">
-                                {% csrf_token %}
+                            <form class="decrement-form" action="{% url 'item_decrement' item.product_id%}" method="get">
                                 <input class="button_option" type="submit" value="-">
                             </form>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             {% endfor %}
         </div>
@@ -86,4 +83,21 @@
 </div>
 </body>
 
+<script>
+    $('#order-form').on('submit', function (e) {
+        e.preventDefault(); //this stops the form submit + refresh
+        var $form = $(this);
+        $.ajax({
+            type: 'get',
+            url: $form.attr("action"),
+
+            success: function (r) {
+                alert('Your order has been sent!')
+            },
+            error: function (r) {
+                alert('Oops! Something go wrong !');
+            }
+        });
+    });
+</script>
 {% endblock %}

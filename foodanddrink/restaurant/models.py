@@ -85,8 +85,8 @@ class Customer(models.Model):
   """docstring for Customer"""
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   avatar = models.ImageField(default=None, upload_to='media/profile_pics', null=True)
-  address = models.CharField(max_length=200, blank=True ,null=True)
-  phone_number = models.CharField(max_length=200, blank=True ,null=True)
+  address = models.CharField(default=None, max_length=200, blank=True ,null=True)
+  phone_number = models.CharField(default=None, max_length=200, blank=True ,null=True)
 
   def __str__(self):
     return f'{self.user.username}'
