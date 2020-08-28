@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+from datetime import datetime
 
 class Category(models.Model):
   """Model representing a category"""
@@ -73,12 +74,14 @@ class Review(models.Model):
   product = models.ForeignKey('Product', on_delete= models.CASCADE)
   content = models.TextField(max_length=1000, help_text='Enter description of review')
   vote = models.IntegerField()
+  date = models.DateTimeField(default=datetime.now, blank=True)
 
 class Comment(models.Model):
   """docstring for Comment"""
   user = models.ForeignKey('Customer', on_delete= models.CASCADE)
   review = models.ForeignKey('Review',on_delete= models.CASCADE)
   content = models.TextField(max_length=1000, help_text='Enter content of comment')
+  date = models.DateTimeField(default=datetime.now, blank=True)
 
 
 class Customer(models.Model):

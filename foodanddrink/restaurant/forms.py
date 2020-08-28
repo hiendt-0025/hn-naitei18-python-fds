@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import User, Customer, Comment
+from .models import User, Customer, Comment, Review
 from django import forms
 from string import Template
 from django.utils.safestring import mark_safe
@@ -50,4 +50,12 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
+
+
+class ReviewForm(forms.ModelForm):
+  """docstring for ReviewForm"""
+  class Meta:
+    model = Review
+    fields = ['content', 'vote']
+
 

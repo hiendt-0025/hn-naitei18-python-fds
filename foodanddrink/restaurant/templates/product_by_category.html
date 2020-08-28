@@ -13,7 +13,7 @@
           <ul class="grid_2">
           {% for product in page_obj %}
             <li>
-              <a href="#"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
+              <a href="{% url 'product_details' product.id %}"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
               <div class="special-info grid_1 simpleCart_shelfItem">
                 <h5>{{ product.name }}</h5>
                 <div class="item_add"><span class="item_price"><h6>${{ product.price}}</h6></span></div>
