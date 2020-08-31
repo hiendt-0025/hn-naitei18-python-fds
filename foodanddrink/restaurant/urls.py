@@ -40,4 +40,6 @@ urlpatterns = [
 
                   path('order_detail/<int:pk>/', views.order_detail, name='order_detail'),
 
+                  path('contact',views.show_contact, name='contact'),
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

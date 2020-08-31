@@ -1,4 +1,6 @@
 import datetime
+
+from django.core.management import BaseCommand
 from django.db.models import Q
 from decimal import Decimal
 
@@ -202,13 +204,12 @@ def make_order(request):
             product = Product.objects.get(pk=item['product_id'])
             if product.quantity < item['quantity']:
                 # cart.clear()
-                out_number_items[item['name'] + " "] = item['quantity'] - product.quantity
+                out_number_items[item['name'] + ", "] = item['quantity'] - product.quantity
                 item['quantity'] = 1
                 item['price_of_all'] = float(item['price'])
         if bool(out_number_items):
             return HttpResponse(out_number_items)
         else:
-
             for key, item in request.session['cart'].items():
                 product = Product.objects.get(pk=item['product_id'])
                 Product.objects.filter(pk=item['product_id']).update(quantity=product.quantity - item['quantity'])
@@ -289,7 +290,7 @@ def product_by_category(request, pk):
     list_category = Category.objects.all()
     category = get_object_or_404(Category, pk=pk)
     list_product = category.product_set.all()
-    paginator = Paginator(list_product, 3)
+    paginator = Paginator(list_product, 4)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -372,27 +373,45 @@ def filter_price(request, pk):
 
 def approved_order(request):
     customer = Customer.objects.get(user_id=request.user.id)
-    order = Order.objects.filter(customer_id=customer).filter(status='a')
+    order = Order.objects.filter(customer_id=customer.id).filter(status='a')
+
+    paginator = Paginator(order, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
         'order': order,
+        'page_obj': page_obj,
     }
     return render(request, 'restaurant/order_list.html', context)
 
 
 def past_order(request):
     customer = Customer.objects.get(user_id=request.user.id)
-    order = Order.objects.filter(customer_id=customer).filter(Q(status='c') | Q(status='f'))
+    order = Order.objects.filter(customer_id=customer.id).filter(Q(status='c') | Q(status='f'))
+
+    paginator = Paginator(order, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
         'order': order,
+        'page_obj': page_obj,
     }
     return render(request, 'restaurant/order_list.html', context)
 
 
 def pending_order(request):
     customer = Customer.objects.get(user_id=request.user.id)
-    order = Order.objects.filter(customer_id=2).filter(status='p')
+    order = Order.objects.filter(customer_id=customer.id).filter(status='p')
+
+    paginator = Paginator(order, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
         'order': order,
+        'page_obj': page_obj,
     }
     return render(request, 'restaurant/order_list.html', context)
 
@@ -405,3 +424,7 @@ def order_detail(request, pk):
         'order_code': order.code,
     }
     return render(request, 'restaurant/order_detail.html', context)
+
+
+def show_contact(request):
+    return render(request,'contact.html')
