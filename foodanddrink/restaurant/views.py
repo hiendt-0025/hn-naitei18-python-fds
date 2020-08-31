@@ -138,12 +138,16 @@ def profile(request):
     return render(request, 'restaurant/profile.html', context)
 
 
-class ProductDetailView(generic.DetailView):
-    model = Product
 
-    def product_detail_view(request, primary_key):
-        product = get_object_or_404(Product, pk=primary_key)
-        return render(request, 'restaurant/product_detail.html', context={'product': product})
+
+def product_detail_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    list_category = Category.objects.all()
+    context={
+        'product': product,
+        'list_category': list_category,
+    }
+    return render(request, 'restaurant/product_detail.html', context)
 
 
 @login_required

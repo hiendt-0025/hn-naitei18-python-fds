@@ -6,55 +6,66 @@
 {% block content %}
   <div class="arriv">
     <div class="container">
-<!--       <form action="{% url 'filter_price' category.id %}" method="get">
-        <select name='cost'>
-          <option value="0" checked>All</option>
-          <option value="10">Tu 0-10</option>
-          <option value="100">Tu 10-100</option>
-        </select>
-        <button>gui</button>
-      </form> -->
-      <div class="special">
-        <h3>{% trans 'List Products By ' %}<br>{{category.name}}</h3>
-        <div class="specia-top">
-          {% if page_obj %}
-          <ul class="grid_2">
-          {% for product in page_obj %}
-            <li>
-              <a href="{% url 'product_details' product.id %}"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
-              <div class="special-info grid_1 simpleCart_shelfItem">
-                <h5>{{ product.name }}</h5>
-                <div class="item_add"><span class="item_price"><h6>${{ product.price}}</h6></span></div>
-                <div class="item_add"><span class="item_price"><a href="{% url 'add_to_cart' product.id %}" >add to cart</a></span></div>
-              </div>
-            </li>
-          {% endfor %}
-          `<form action="{% url 'filter_price' category.id %}" method="get">
-            <div style="float: right;width: 20%;">
-            <select name='cost' style="background-color: rgb(9, 209, 182);width: 150px;height: 30px;">
-              <!-- <option value="0" checked>All</option> -->
-              <option value="10">Tu 0-10</option>
-              <option value="100">Tu 10-100</option>
-            </select>
-            <button>Sort</button>
+      <div class="row single special">
+        <div class="col-md-9 det">
+          <h3>{% trans 'List Products By ' %}<br>{{category.name}}</h3>
+          <div class="specia-top">
+            {% if page_obj %}
+            <ul class="grid_2">
+            {% for product in page_obj %}
+              <li>
+                <a href="{% url 'product_details' product.id %}"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
+                <div class="special-info grid_1 simpleCart_shelfItem">
+                  <h5>{{ product.name }}</h5>
+                  <div class="rate">
+                    <div class="product-rating">
+                      <i class="fa fa-star{% if product.vote < 1 %}-o empty{% endif %}"></i>
+                      <i class="fa fa-star{% if product.vote < 2 %}-o empty{% endif %}"></i>
+                      <i class="fa fa-star{% if product.vote < 3 %}-o empty{% endif %}"></i>
+                      <i class="fa fa-star{% if product.vote < 4 %}-o empty{% endif %}"></i>
+                      <i class="fa fa-star{% if product.vote < 5 %}-o empty{% endif %}"></i>
+                    </div>
+                  </div>
+                  <div class="item_add"><span class="item_price"><h6>${{ product.price}}</h6></span></div>
+                  <div class="item_add"><span class="item_price"><a href="{% url 'add_to_cart' product.id %}" >add to cart</a></span></div>
+                </div>
+              </li>
+            {% endfor %}
+            <div class="clearfix"> </div>
+            <div class="pagination">
+              {% if page_obj.has_previous %}
+                  <a href="?page=1&cost={{ cost }}">&laquo;</a>
+                  <a href="?page={{ page_obj.previous_page_number }}&cost={{ cost }}">{{ page_obj.previous_page_number }}</a>
+              {% endif %}
+
+              {% if page_obj.has_next %}
+                  <a href="?page={{ page_obj.next_page_number }}&cost={{ cost }}">{{ page_obj.next_page_number }}</a>
+                  <a href="?page={{ page_obj.paginator.num_pages }}&cost={{ cost }}">&raquo;</a>
+              {% endif %}
             </div>
-          </form>
-          <div class="clearfix"> </div>
-          <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="?page=1&cost={{ cost }}">&laquo;</a>
-                <a href="?page={{ page_obj.previous_page_number }}&cost={{ cost }}">{{ page_obj.previous_page_number }}</a>
+            </ul>
+            {% else %}
+            <p>There are no products</p>
             {% endif %}
 
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}&cost={{ cost }}">{{ page_obj.next_page_number }}</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}&cost={{ cost }}">&raquo;</a>
-            {% endif %}
           </div>
-          </ul>
-          {% else %}
-          <p>There are no products</p>
-          {% endif %}
+        </div>
+        <div class="col-md-3 s-d">
+          <div class="w_sidebar">
+            <h3>{% trans 'filter by' %}</h3>
+            <section class="sky-form">
+              <h4>{% trans 'Price' %}</h4>
+              <form action="{% url 'filter_price' category.id %}" method="get">
+              <div class="row1 scroll-pane">
+                <div class="col col-4">
+                  <label class="radio"><input type="radio" name="cost" checked="" value="10"><i></i>Tu 0-10</label>
+                  <label class="radio"><input type="radio" name="cost" value="20"><i></i>Tu 10-100</label>
+                </div>
+              </div>
+              <input type="submit" class="btn btn-success sort" value="Sort">
+              </form>
+            </section>
+          </div>
         </div>
       </div>
     </div>
