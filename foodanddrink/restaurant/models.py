@@ -52,6 +52,7 @@ class Order(models.Model):
     ('p', 'PENDING'),
     ('f', 'FINISH'),
     ('c', 'CANCEL'),
+    ('a', 'APPROVED'),
   )
 
   status = models.CharField(

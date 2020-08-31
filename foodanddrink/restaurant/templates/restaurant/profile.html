@@ -34,17 +34,17 @@
                       {% trans 'My profile' %}</a>
                     </li>
                     <li>
-                      <a href="#">
-                      <i class="material-icons">add_alert</i>
-                      {% trans 'My notification' %}</a>
-                    </li>
-                    <li>
-                      <a href="#" target="_blank">
+                      <a href="{% url 'pending_order' %}">
                       <i class="material-icons">shopping_cart</i>
                       {% trans 'My order' %} </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="{% url 'approved_order' %}">
+                      <i class="material-icons">add_alert</i>
+                      {% trans 'Approved order' %}</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'past_order' %}">
                       <i class="material-icons">view_list</i>
                       {% trans 'History order' %} </a>
                     </li>

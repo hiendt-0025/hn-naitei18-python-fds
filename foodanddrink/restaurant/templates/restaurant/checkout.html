@@ -5,7 +5,6 @@
 
 
 {% block content %}
-
 <body>
 <div class="container">
     <div class="check">
@@ -29,7 +28,7 @@
 
             <div class="clearfix"></div>
             <form id="order-form" action="{% url 'make_order' %}" method="get">
-                <input class="place-order-button" type= "submit" value="Place Order"/>
+                <input class="place-order-button" type="submit" value="Place Order"/>
             </form>
         </div>
 
@@ -62,13 +61,15 @@
                     <br/>
                     <div class="group_option_button">
                         <div>
-                            <form class="increment-form" action="{% url 'item_increment' item.product_id %}" method="get">
+                            <form class="increment-form" action="{% url 'item_increment' item.product_id %}"
+                                  method="get">
                                 <input class="button_option" type="submit" value="+">
                             </form>
                         </div>
 
                         <div>
-                            <form class="decrement-form" action="{% url 'item_decrement' item.product_id%}" method="get">
+                            <form class="decrement-form" action="{% url 'item_decrement' item.product_id%}"
+                                  method="get">
                                 <input class="button_option" type="submit" value="-">
                             </form>
                         </div>
@@ -90,12 +91,16 @@
         $.ajax({
             type: 'get',
             url: $form.attr("action"),
-
             success: function (r) {
-                alert('Your order has been sent!')
+                if (r == 'success')
+                    alert('Your order has been sent!');
+                else
+                    alert('Your order exceeds the quantity!!!\n\nItems that exceed the quantity : '+r);
+                window.location.href = "{% url 'order' %}";
             },
             error: function (r) {
-                alert('Oops! Something go wrong !');
+                window.location.href = "{% url 'index' %}";
+                alert('Oops something goes wrong !');
             }
         });
     });

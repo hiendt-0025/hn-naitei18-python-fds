@@ -13,18 +13,31 @@
                 <ul class="grid_2">
                     {% for product in page_obj %}
                     <li>
-                      <a href="{% url 'product_details' product.id %}"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
-                      <div class="special-info grid_1 simpleCart_shelfItem">
-                        <h5>{{ product.name }}</h5>
-                        <div class="item_add"><span class="item_price"><h6>${{ product.price}}</h6></span></div>
-                        <div class="item_add">
-                            <span class="item_price">
-                                <form method="get" action="{% url 'add_to_cart' product.id %}" class="add_to_cart" name="{{product.name}}">
-                                    <input class="add-to-cart-button" type="submit" value="Add to Cart">
-                                </form>
-                            </span>
+                        <a href="{% url 'product_details' product.id %}"><img src="{{ product.image.url }}"
+                                                                              class="img-responsive" alt=""></a>
+                        <div class="special-info grid_1 simpleCart_shelfItem">
+                            <h3>{{ product.name }}</h3>
+                            <div class="item_add"><span
+                                    class="item_price"><h6>Price per server: ${{ product.price}}</h6></span></div>
+                            <div><h6>Product quantity: {{ product.quantity}}</h6></div>
+                            {% if product.quantity > 0 %}
+                            <div class="item_add">
+                                <span class="item_price">
+                                        <form method="get" action="{% url 'add_to_cart' product.id %}"
+                                              class="add_to_cart"
+                                              name="{{product.name}}">
+                                            <input class="add-to-cart-button" type="submit" value="Add to Cart">
+                                        </form>
+                                </span>
+                            </div>
+                            {% else %}
+                            <div class="item_add">
+                                <span class="item_price">
+                                    <h5 style="color: red">Sold Out</h5>
+                                </span>
+                            </div>
+                            {% endif %}
                         </div>
-                      </div>
                     </li>
                     {% endfor %}
 
@@ -59,7 +72,7 @@
             type: 'get',
             url: $form.attr("action"),
             success: function (r) {
-                alert('You have add '+$name+" into your cart !")
+                alert('You have add ' + $name + " into your cart !")
             },
             error: function (r) {
                 alert('Oops! Something go wrong !');
