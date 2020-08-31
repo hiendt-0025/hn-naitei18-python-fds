@@ -444,7 +444,6 @@ ul.qty li p {
 .item_add {
     border: none;
     color: #3f3d3d;
-    padding: 10px 20px;
     font-size: 0.85em;
     border: none;
     text-align: center;
@@ -1054,7 +1053,7 @@ ul.megamenu.skyblue {
 }
 
 .arriv p {
-    color: #ededed;
+    color: #000000;
     font-size: 1em;
     font-weight: 300;
     line-height: 1.8em;
@@ -1443,11 +1442,8 @@ i.mail {
 .special h3 {
     font-family: 'Playfair Display', serif;
     font-size: 1.5em;
-    border: 1px solid #e5e4e2;
     text-align: center;
-    padding: 0.5em;
     margin: 0 auto;
-    width: 21%;
 }
 
 .specia-top {

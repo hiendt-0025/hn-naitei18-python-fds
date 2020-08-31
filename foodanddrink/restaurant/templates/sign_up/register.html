@@ -1,5 +1,6 @@
 {% extends "base_generic.html" %}
 {% load static %}
+{% load i18n %}
 {% block title %}<title>Sign up</title>{% endblock %}
 
 {% block content %}
@@ -68,35 +69,29 @@
 					{% endif %}
 
 					{% csrf_token %}
-					<div>
-						<label>
-							<input placeholder="first name:" type="text" name="first_name" tabindex="1" required autofocus>
-						</label>
+					<div class="form-group">
+						<label >{% trans 'First Name' %}</label>
+						<input placeholder="first name:" type="text" name="first_name" tabindex="1" required autofocus>
 					</div>
-					<div>
-						<label>
+					<div class="form-group">
+							<label >{% trans 'Last Name' %}</label>
 							<input placeholder="last name:" type="text" name="last_name" tabindex="2" required autofocus>
-						</label>
 					</div>
-					<div>
-						<label>
+					<div class="form-group">
+							<label >{% trans 'User Name' %}</label>
 							<input placeholder="username" type="text" name="username" tabindex="3" required>
-						</label>
 					</div>
-					<div>
-						<label>
+					<div class="form-group">
+							<label >{% trans 'Email' %}</label>
 							<input placeholder="email address:" type="email" name="email" tabindex="3" required>
-						</label>
 					</div>
-					<div>
-						<label>
+					<div class="form-group">
+							<label >{% trans 'Password' %}</label>
 							<input placeholder="password" type="password" name="password1" tabindex="4" required>
-						</label>
 					</div>
-					<div>
-						<label>
+					<div class="form-group">
+							<label >{% trans 'Password confirm' %}</label>
 							<input placeholder="retype password" type="password" name="password2" tabindex="4" required>
-						</label>
 					</div>
 					<div>
 						<input type="submit" value="create an account" id="register-submit">

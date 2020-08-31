@@ -17,9 +17,18 @@
                                                                               class="img-responsive" alt=""></a>
                         <div class="special-info grid_1 simpleCart_shelfItem">
                             <h3>{{ product.name }}</h3>
+                            <div class="rate">
+                              <div class="product-rating">
+                                <i class="fa fa-star{% if product.vote < 1 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if product.vote < 2 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if product.vote < 3 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if product.vote < 4 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if product.vote < 5 %}-o empty{% endif %}"></i>
+                              </div>
+                            </div>
                             <div class="item_add"><span
-                                    class="item_price"><h6>Price per server: ${{ product.price}}</h6></span></div>
-                            <div><h6>Product quantity: {{ product.quantity}}</h6></div>
+                                    class="item_price"><h6>{% trans 'Price: $' %}{{ product.price}}</h6></span></div>
+                            <div><h6>{% trans 'Product quantity: ' %}{{ product.quantity}}</h6></div>
                             {% if product.quantity > 0 %}
                             <div class="item_add">
                                 <span class="item_price">
@@ -33,7 +42,7 @@
                             {% else %}
                             <div class="item_add">
                                 <span class="item_price">
-                                    <h5 style="color: red">Sold Out</h5>
+                                    <h5 style="color: red"> {% trans 'Sold Out' %}</h5>
                                 </span>
                             </div>
                             {% endif %}
@@ -55,7 +64,7 @@
                     </div>
                 </ul>
                 {% else %}
-                <p>There are no products .</p>
+                <p>{% trans 'There are no products .' %}</p>
                 {% endif %}
             </div>
         </div>
