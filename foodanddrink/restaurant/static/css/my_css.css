@@ -1,5 +1,5 @@
 #log {
-    width: 17% !important;
+    width: 19% !important;
     margin-right: 5px;
 }
 
@@ -165,4 +165,9 @@
     font-weight: 600;
     text-align: center;
     margin-bottom: 2em;
+}
+
+.language {
+    height: 37px;
+    margin-left: 5px;
 }
