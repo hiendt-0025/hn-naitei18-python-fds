@@ -203,5 +203,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 CRONJOBS = [
-    ('0 0 1 * *','restaurant.cron.monthly_report'),
+
+    ('0 0 1 * *','restaurant.cron.monthly_report'), # mung 1 dau thang/ de test 1 phut / lan la * * * * *
 ]
+

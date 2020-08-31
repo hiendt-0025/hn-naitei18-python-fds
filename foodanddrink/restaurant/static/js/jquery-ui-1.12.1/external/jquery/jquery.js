@@ -1245,7 +1245,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Webkit/Opera - :checked should return selected option elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-			// IE8 throws error here and will not see later tests
+			// IE8 throws error here and will not see later test
 			if ( !div.querySelectorAll(":checked").length ) {
 				rbuggyQSA.push(":checked");
 			}
@@ -1272,7 +1272,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
-			// IE8 throws error here and will not see later tests
+			// IE8 throws error here and will not see later test
 			if ( !div.querySelectorAll(":enabled").length ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
 			}
@@ -3699,7 +3699,7 @@ for ( i in jQuery( support ) ) {
 }
 support.ownFirst = i === "0";
 
-// Note: most support tests are defined in their respective modules.
+// Note: most support test are defined in their respective modules.
 // false until the test is run
 support.inlineBlockNeedsLayout = false;
 
@@ -8143,7 +8143,7 @@ jQuery.fn.delay = function( time, type ) {
 
 	a = div.getElementsByTagName( "a" )[ 0 ];
 
-	// First batch of tests.
+	// First batch of test.
 	a.style.cssText = "top:1px";
 
 	// Test setAttribute on camelCase class.
