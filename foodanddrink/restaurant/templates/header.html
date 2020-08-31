@@ -42,12 +42,17 @@
           <div class="clearfix"> </div>
         </div>
         <div class="search">
-            <form>
-              <input type="text" value="" placeholder="search...">
-            <input type="submit" value="">
-          </form>
+            <form action="{%  url 'search_results' %}" method="get">
+                <!-- {% csrf_token %} -->
+                <div class="form-group">
+                    <input type="text" class="form-control" name="search" id="search exampleInputPassword1" placeholder="Search a Product" style="height: : 100%;">
+                    <input type="submit" value="" style="margin:0px 25px 5px auto; ">
+                </div>
+
+            </form>
+
         </div>
-        <div class="clearfix"> </div>
+
         </div>
         <div class="clearfix"> </div>
       </div>
@@ -79,3 +84,8 @@
     </div>
   </div>
 </div>
+<style type="text/css">
+  .form-group {
+    margin-bottom: 0px !important;
+}
+</style>

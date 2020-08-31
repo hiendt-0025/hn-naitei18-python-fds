@@ -51,11 +51,8 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['content']
 
-
 class ReviewForm(forms.ModelForm):
   """docstring for ReviewForm"""
   class Meta:
     model = Review
     fields = ['content', 'vote']
-
-

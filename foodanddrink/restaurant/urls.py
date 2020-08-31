@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 from . import views
+from .views import SearchResultsView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -26,4 +27,6 @@ urlpatterns = [
     path('addcomment/<int:pk>', views.addcomment, name='addcomment'),
     path('category/<int:pk>', views.product_by_category, name='product_by_category'),
     path('review/<int:pk>', views.review_product, name='review_product'),
+    path('search/', SearchResultsView.as_view(), name='search_results'),
+    path('category/<int:pk>/price/', views.filter_price, name='filter_price'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -26,6 +26,10 @@ from django.views import generic
 from django.contrib import messages
 from django.db.models import Avg
 
+from django.views.generic import ListView
+from django.db.models import Q
+
+
 UserModel = get_user_model()
 DEFAULT_AVATAR = 'media/profile_pics/default.jpg'
 
@@ -234,7 +238,7 @@ def updateProfile(request):
 from django.shortcuts import render, get_object_or_404
 from .models import Review, Comment
 from .forms import CommentForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 # Create your views here.
 
 def addcomment(request,pk):
@@ -251,18 +255,17 @@ def addcomment(request,pk):
       comment.save()
       return HttpResponseRedirect(url)
   template='restaurant/product_detail.html'
-  context = {'form': form,'comments':comments}
+  context = {'form': form}
   return render(request, template, context)
 
 def product_by_category(request, pk):
   list_category = Category.objects.all()
   category = get_object_or_404(Category, pk=pk)
   list_product = category.product_set.all()
-  paginator = Paginator(list_product, 4)
+  paginator = Paginator(list_product, 3)
 
   page_number = request.GET.get('page')
   page_obj = paginator.get_page(page_number)
-
   context = {
       'list_category': list_category,
       'category': category,
@@ -296,3 +299,41 @@ def review_product(request,pk):
     'product': product
   }
   return render(request, template, context)
+
+
+class SearchResultsView(ListView):
+    model = Product
+    template_name = 'restaurant/search-product.html'
+    context_object_name = 'products'
+    paginate_by = 4
+    def get_queryset(self):
+        # queryset = super(SearchResultsView, self).get_queryset()
+        query = self.request.GET.get('search')
+        products=Product.objects.filter(Q(name__icontains=query))
+        return products
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('search')
+        return context
+
+def filter_price(request,pk):
+    if request.method=='GET':
+        list_category = Category.objects.all()
+        category = get_object_or_404(Category, pk=pk)
+        products = category.product_set.all()
+        cost=request.GET.get('cost')
+        cost=int(cost)
+        if cost==10:
+          list_product=products.filter(price__range=(0,cost))
+        else:
+          list_product=products.filter(price__range=(10,cost))
+        paginator = Paginator(list_product, 3)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context={
+          'list_category': list_category,
+          'category': category,
+          'page_obj': page_obj,
+          'cost': cost
+        }
+        return render(request, 'product_by_category.html', context)
