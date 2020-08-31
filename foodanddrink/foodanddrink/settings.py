@@ -53,11 +53,11 @@ INSTALLED_APPS = [
     'cart',
     'django_sass_compiler',
     'django.contrib.sites',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -202,3 +202,6 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+CRONJOBS = [
+    ('0 0 1 * *','restaurant.cron.monthly_report'),
+]
