@@ -43,17 +43,17 @@
                         <span class="step-links ">
 
                         {% if page_obj.has_previous %}
-                            <a class="d-inline-block head" href="?page=1">FIRST</a>
-                            <a class="d-inline-block" href="?page={{ page_obj.previous_page_number }}">
+                            <a class="d-inline-block head" href="?page=1&min={{ min_p }}&max={{ max_p }}">FIRST</a>
+                            <a class="d-inline-block" href="?page={{ page_obj.previous_page_number }}&min={{ min_p }}&max={{ max_p }}">
                                 <span class="glyphicon glyphicon-backward"></span>
                             </a>
                         {% endif %}
 
                         {% if page_obj.has_next %}
-                            <a class="d-inline-block" href="?page={{ page_obj.next_page_number }}">
+                            <a class="d-inline-block" href="?page={{ page_obj.next_page_number }}&min={{ min_p }}&max={{ max_p }}">
                                 <span class="glyphicon glyphicon-forward"></span>
                             </a>
-                            <a class="d-inline-block head" href="?page={{ page_obj.paginator.num_pages }}">LAST</a>
+                            <a class="d-inline-block head" href="?page={{ page_obj.paginator.num_pages }}&min={{ min_p }}&max={{ max_p }}">LAST</a>
                         {% endif %}
                       </span>
                         </div>
@@ -70,13 +70,10 @@
                     <section class="sky-form">
                         <h4>{% trans 'Price' %}</h4>
                         <form action="{% url 'filter_price' category.id %}" method="get">
-                            <div class="row1 scroll-pane">
-                                <div class="col col-4">
-                                    <label class="radio"><input type="radio" name="cost" checked="" value="10"><i></i>From
-                                        $0-$10</label>
-                                    <label class="radio"><input type="radio" name="cost" value="20"><i></i>From
-                                        $10-$100</label>
-                                </div>
+                            <div class="row1 scroll-pane" style="height:150px">
+                                <input name="min" checked="" style="width:100px">
+                                <span>-</span>
+                                <input name="max" style="width:100px" checked="">
                             </div>
                             <input type="submit" class="btn btn-success sort" value="Sort">
                         </form>
