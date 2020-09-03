@@ -10,9 +10,18 @@
           <ul class="grid_2">
           {% for product in products %}
             <li>
-              <a href="#"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
+              <a href="{% url 'product_details' product.id %}"><img src="{{ product.image.url }}" class="img-responsive" alt=""></a>
               <div class="special-info grid_1 simpleCart_shelfItem">
                 <h5>{{ product.name }}</h5>
+                <div class="rate">
+                  <div class="product-rating">
+                    <i class="fa fa-star{% if product.vote < 1 %}-o empty{% endif %}"></i>
+                    <i class="fa fa-star{% if product.vote < 2 %}-o empty{% endif %}"></i>
+                    <i class="fa fa-star{% if product.vote < 3 %}-o empty{% endif %}"></i>
+                    <i class="fa fa-star{% if product.vote < 4 %}-o empty{% endif %}"></i>
+                    <i class="fa fa-star{% if product.vote < 5 %}-o empty{% endif %}"></i>
+                  </div>
+                </div>
                 <div class="item_add"><span class="item_price"><h6>{{ product.price}}</h6></span></div>
                 <div class="item_add"><span class="item_price"><a href="#">add to cart</a></span></div>
               </div>
