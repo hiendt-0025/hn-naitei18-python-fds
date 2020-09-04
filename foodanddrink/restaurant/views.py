@@ -267,7 +267,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 
 # Create your views here.
-
+@login_required
 def addcomment(request, pk):
     url = request.META.get('HTTP_REFERER')  # get last url
     review = get_object_or_404(Review, pk=pk)
@@ -290,7 +290,7 @@ def product_by_category(request, pk):
     list_category = Category.objects.all()
     category = get_object_or_404(Category, pk=pk)
     list_product = category.product_set.all()
-    paginator = Paginator(list_product, 4)
+    paginator = Paginator(list_product, 3)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -353,12 +353,9 @@ def filter_price(request, pk):
         list_category = Category.objects.all()
         category = get_object_or_404(Category, pk=pk)
         products = category.product_set.all()
-        cost = request.GET.get('cost')
-        cost = int(cost)
-        if cost == 10:
-            list_product = products.filter(price__range=(0, cost))
-        else:
-            list_product = products.filter(price__range=(10, cost))
+        min_p = float(request.GET.get('min'))
+        max_p = float(request.GET.get('max'))
+        list_product = products.filter(price__range=(min_p, max_p))
         paginator = Paginator(list_product, 3)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -366,7 +363,8 @@ def filter_price(request, pk):
             'list_category': list_category,
             'category': category,
             'page_obj': page_obj,
-            'cost': cost
+            'min_p': min_p,
+            'max_p': max_p,
         }
         return render(request, 'product_by_category.html', context)
 
