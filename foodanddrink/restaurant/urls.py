@@ -24,7 +24,7 @@ urlpatterns = [
                   path('item_increment/<int:pk>/', views.item_increment, name='item_increment'),
                   path('item_decrement/<int:pk>/', views.item_decrement, name='item_decrement'),
 
-                  path('review/<int:pk>', views.review_product, name='review_product'),
+                  # path('review/<int:pk>', views.review_product, name='review_product'),
                   path('search/', SearchResultsView.as_view(), name='search_results'),
                   path('category/<int:pk>/price/', views.filter_price, name='filter_price'),
 
