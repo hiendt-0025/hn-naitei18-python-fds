@@ -145,9 +145,11 @@ def profile(request):
 def product_detail_view(request, pk):
     product = get_object_or_404(Product, pk=pk)
     list_category = Category.objects.all()
+    review = Review.objects.filter(product_id=pk).order_by('-date')
     context={
         'product': product,
         'list_category': list_category,
+        'review_list': review
     }
     return render(request, 'restaurant/product_detail.html', context)
 
@@ -303,33 +305,6 @@ def product_by_category(request, pk):
     return render(request, 'product_by_category.html', context)
 
 
-@login_required
-def review_product(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = Review()
-            review.product = product
-            review.content = form.cleaned_data['content']
-            review.vote = form.cleaned_data['vote']
-            review.user = Customer.objects.get(user=request.user)
-            review.save()
-            rate = Review.objects.filter(product=product).aggregate(Avg('vote'))
-            product.vote = list(rate.values())[0]
-            product.save()
-
-            return redirect('product_details', pk)
-    template = 'restaurant/product_detail.html'
-
-    context = {
-        'form': form,
-        'product': product
-    }
-    return render(request, template, context)
-
-
 class SearchResultsView(ListView):
     model = Product
     template_name = 'restaurant/search-product.html'
@@ -426,3 +401,4 @@ def order_detail(request, pk):
 
 def show_contact(request):
     return render(request,'contact.html')
+
