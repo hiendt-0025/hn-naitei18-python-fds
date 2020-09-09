@@ -1,7 +1,4 @@
 import datetime
-
-from django.core.management import BaseCommand
-from django.db.models import Q
 from decimal import Decimal
 
 from cart.cart import Cart
@@ -10,7 +7,7 @@ from cart.context_processor import cart_total_amount
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.encoding import force_bytes
@@ -20,11 +17,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
 from .models import Customer, Product, Order, Category, OrderDetail, Comment, Review
-from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from django.core.paginator import Paginator
-from django.views import generic
 from django.contrib import messages
 from django.db.models import Avg
 
