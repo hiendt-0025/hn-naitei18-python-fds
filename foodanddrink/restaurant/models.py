@@ -118,3 +118,10 @@ class Customer(models.Model):
 
     def __str__(self):
         return f'{self.user.username}'
+
+from django.db.models.signals import post_save
+
+def create_customer(sender, instance, created, **kwargs):
+    if created:
+        Customer.objects.create(user=instance)
+post_save.connect(create_customer, sender=User)

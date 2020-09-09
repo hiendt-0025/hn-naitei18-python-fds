@@ -33,5 +33,6 @@ urlpatterns += i18n_patterns(
     path('', include('restaurant.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('restaurant/', include('restaurant.urls')),
+    path('accounts/', include('allauth.urls')),
     prefix_default_language=False,
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
