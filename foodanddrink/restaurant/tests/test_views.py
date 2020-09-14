@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.urls import reverse
-
 from ..models import Order, OrderDetail, User, Product, Category, Customer
 
 DEFAULT_AVATAR = 'media/profile_pics/default.jpg'
