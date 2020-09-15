@@ -29,6 +29,9 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_details', args=[str(self.id)])
 
+    class Meta:
+        ordering = ['-id']
+
 
 class OrderDetail(models.Model):
     """docstring for OrderDetail"""

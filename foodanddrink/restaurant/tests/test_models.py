@@ -83,7 +83,7 @@ class CustomerModelTest(TestCase):
   @classmethod
   def setUpTestData(cls):
     user = User.objects.create(username = 'Test', password ='123123@q')
-    Customer.objects.create(user=user, address="So 1 , ngo 1", phone_number= "0987654321")
+    Customer.objects.create(user = user)
 
   def test_object_name_is_user_name(self):
     customer = Customer.objects.get(id=1)
